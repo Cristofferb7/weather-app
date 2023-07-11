@@ -1,6 +1,7 @@
 // 3 global variables 
 // 1 for the API KEY
-// 1 for base url : https://openweathermap.org/
+var APIKey = " https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=364de14a0f6c3e26bc2f029a08d5ee2f"
+var  url : http:"openweathermap.org"
 // search history array 
 
 // function to display the search history 
