@@ -1,6 +1,6 @@
 // 3 global variables 
 // 1 for the API KEY
-var APIKey = " https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=364de14a0f6c3e26bc2f029a08d5ee2f"
+var APIKey = "364de14a0f6c3e26bc2f029a08d5ee2f"
 // var  url : http:"openweathermap.org"
 
 // search history array 
@@ -26,3 +26,42 @@ var APIKey = " https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={l
 // to make calls here maybe a call back function 
 
 // function to event listener for search button 
+var searchBtn = document.getElementById("search-btn")
+var searchCity = document.getElementById("search-city")
+
+function search() {
+    var content = searchCity.value
+    console.log(content)
+
+    var url = "https://api.openweathermap.org/data/2.5/forecast?q="+ content +"&appid=" + APIKey
+
+
+    console.log(url)
+
+    fetch(url)
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data) {
+        console.log(data);
+
+        var fiveDays = [
+            data.list[0],
+            data.list[8],
+            data.list[16],
+            data.list[24],
+            data.list[32],
+        ]
+
+        console.log(fiveDays)
+
+        for(i = 0; i < fiveDays.length; i++) {
+            
+        }
+
+
+    })
+}
+
+
+searchBtn.addEventListener("click", search)
