@@ -25,6 +25,7 @@ function search() {
   fiveDayContainer.innerHTML = "";
 
 // function to fetch the data and transport the info into the cards
+
   fetch(url)
     .then(function (response) {
       return response.json();
@@ -79,7 +80,7 @@ mainCardDiv.appendChild(cardBodyDiv);
 
 currentDayContainer.appendChild(mainCardDiv);
     
-
+// variable of the five days to get each one
       var fiveDays = [
         data.list[1],
         data.list[9],
@@ -89,7 +90,7 @@ currentDayContainer.appendChild(mainCardDiv);
       ];
 
       console.log(fiveDays);
-
+// for loop of the five days to show on the cards with the added, weather, icon, temp, wind from the api 
       for (var i = 0; i < fiveDays.length; i++) {
         var containerDiv = document.createElement("div");
         containerDiv.classList.add("card", "col");
@@ -124,9 +125,10 @@ currentDayContainer.appendChild(mainCardDiv);
 
         fiveDayContainer.appendChild(containerDiv);
       }
-
-      saveCityToLocalStorage(content); // Save the clicked city to local storage
-      displaySearchHistory(); // Display the search history
+// Save the clicked city to local storage
+      saveCityToLocalStorage(content); 
+      // Display the search history
+      displaySearchHistory(); 
     });
 }
 
