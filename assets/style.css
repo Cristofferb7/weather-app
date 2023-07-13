@@ -3,6 +3,9 @@
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;
     margin: auto;
+    background-image: linear-gradient(to bottom right, #ffffff, #e6e6e6);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .container {
@@ -22,6 +25,14 @@
     padding: 20px;
     margin-bottom: 20px;
 }
+
+.header-title {
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  }
 
 .search-container {
     display: flex;

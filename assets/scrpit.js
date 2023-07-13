@@ -40,7 +40,7 @@ var mainCardDiv = document.createElement("div");
 mainCardDiv.classList.add("card", "mx-auto");
 
 var cardBodyDiv = document.createElement("div");
-cardBodyDiv.classList.add("card-body");
+cardBodyDiv.classList.add("card-body", 'bg-success');
 
 var cardTitleH1 = document.createElement("h1");
 cardTitleH1.classList.add("card-title");
@@ -130,6 +130,7 @@ currentDayContainer.appendChild(mainCardDiv);
     });
 }
 
+// icon images
 function getWeatherIconClass(iconCode) {
   var iconMap = {
     "01d": "fa-sun",
