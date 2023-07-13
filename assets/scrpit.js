@@ -1,33 +1,10 @@
 // 3 global variables 
 // 1 for the API KEY
 var APIKey = "364de14a0f6c3e26bc2f029a08d5ee2f"
-// var  url : http:"openweathermap.org"
-
-// search history array 
-
-// function to display the search history 
-// loop over history array and count down so the most recent search is at the top
-
-// function to update search history on local storage
-
-
-// function to get search history from local storage
-
-// function to display current weather data from fetch request
-
-// function to display the 5 day forecast data from fetch request 
-// need icon, temp, humidity, date , wind speed
-
-// create element for each of the above^^
-
-// function to display 5 day forecast data from fetch request for each card
-
-// function to specifically target geolocation with lat and lon and use function above
-// to make calls here maybe a call back function 
-
-// function to event listener for search button 
 var searchBtn = document.getElementById("search-btn")
 var searchCity = document.getElementById("search-city")
+// const currentDate = new Date('DD, MM, YYYY'); // Example date object
+
 
 function search() {
     var content = searchCity.value
@@ -45,20 +22,47 @@ function search() {
     .then(function(data) {
         console.log(data);
 
-        // current weather
+        var currentDay = data.list[0];
+        var currentDate = new Date();
+        var cityName = data.city.name;
+        
+        var cardDiv = document.createElement("div");
+        cardDiv.classList.add("card", "mx-auto");
 
-        var currentDay =  data.list[0];
-
-        console.log(currentDay)
-
-        var currentDateH2 = document.createElement("h2");
-        var currentTempP = document.createElement("p");
-
-        currentDateH2.textContent = data.city.name
-        currentTempP.textContent = "Temp: " + currentDay.main.temp
-
+        
+        
+        var cardBodyDiv = document.createElement("div");
+        cardBodyDiv.classList.add("card-body");
+        
+        var cardTitleH1 = document.createElement("h1");
+        cardTitleH1.classList.add("card-title");
+        cardTitleH1.textContent = "Current Date: " + currentDate.toDateString();
+        
+        var cityNameH2 = document.createElement("h2");
+        cityNameH2.textContent = "City: " + cityName;
+        
+        var tempP = document.createElement("p");
+        tempP.classList.add("card-text");
+        tempP.textContent = "Temp: " + currentDay.main.temp;
+        
+        var windSpeedP = document.createElement("p");
+        windSpeedP.classList.add("card-text");
+        windSpeedP.textContent = "Wind Speed: " + currentDay.wind.speed;
+        
+        var humidityP = document.createElement("p");
+        humidityP.classList.add("card-text");
+        humidityP.textContent = "Humidity: " + currentDay.main.humidity + "%";
+        
+        cardBodyDiv.appendChild(cardTitleH1);
+        cardBodyDiv.appendChild(cityNameH2);
+        cardBodyDiv.appendChild(tempP);
+        cardBodyDiv.appendChild(windSpeedP);
+        cardBodyDiv.appendChild(humidityP);
+        
+        cardDiv.appendChild(cardBodyDiv);
+        
         var currentDayContainer = document.getElementById("current-weather");
-        currentDayContainer.append(currentDateH2, currentTempP)
+        currentDayContainer.appendChild(cardDiv);
 
 
 
@@ -74,43 +78,46 @@ function search() {
 
         console.log(fiveDays)
 
-        // var temp1 = document.getElementById("temp1");
-        // temp1.textContent = fiveDays[0].main.temp
-
-        //  var temp2 = document.getElementById("temp2");
-        // temp2.textContent = fiveDays[1].main.temp
-
-            // <div class="card" style="width: 18rem;">
-            //  <div class="card-header">
-            //      Featured
-            //  </div>
-            //  <ul class="list-group list-group-flush">
-            //     <li class="c">Temp/li>
-            //     <li class="list-group-item">A second item</li>
-            //     <li class="list-group-item">A third item</li>
-            //   </ul>
-            // </div>
-
+// for loop to generate 5 days
         for(i = 0; i < fiveDays.length; i++) {
             var containerDiv = document.createElement("div");
             var dateH3 = document.createElement("h3");
 
-            var newUl = document.createElement("ul");
-            var tempLi = document.createElement("li");
 
             containerDiv.classList.add("card");
             containerDiv.classList.add("col");
-            dateH3.textContent = fiveDays[i].dt_txt
+            dateH3.textContent = formatDateString(fiveDays[i].dt_txt);
 
-            newUl.classList.add("list-group")
-            newUl.classList.add("list-group-flush")
-            tempLi.textContent = "Temp: " + fiveDays[i].main.temp
-            tempLi.classList.add("list-group-item")
+            function formatDateString(dateString) {
+              const date = new Date(dateString);
+              const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+              return formattedDate;
+            }
+        //   added costants and class list to add the wind, temp and hum 
+            const newUl = document.createElement("ul");
+            newUl.classList.add("list-group");
+            newUl.classList.add("list-group-flush");
 
-            newUl.appendChild(tempLi)
-            
-            containerDiv.appendChild(dateH3)
-            containerDiv.appendChild(newUl)
+            const tempLi = document.createElement("li");
+            tempLi.textContent = "Temp: " + fiveDays[i].main.temp;
+                tempLi.classList.add("list-group-item");
+
+            const windSpeedLi = document.createElement("li");
+                windSpeedLi.textContent = "Wind Speed: " + fiveDays[i].wind.speed;
+                windSpeedLi.classList.add("list-group-item");
+
+            const humidityLi = document.createElement("li");
+                humidityLi.textContent = "Humidity: " + fiveDays[i].main.humidity + "%";
+                humidityLi.classList.add("list-group-item");
+
+
+            newUl.appendChild(tempLi);
+            newUl.appendChild(windSpeedLi);
+            newUl.appendChild(humidityLi);
+
+            containerDiv.appendChild(dateH3);
+            containerDiv.appendChild(newUl);
+
             
 
             var fiveDayContainer = document.getElementById("five-days");
